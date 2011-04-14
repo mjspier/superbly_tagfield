@@ -12,15 +12,18 @@
 (function($){
     $.fn.superblyTagField = function(userOptions) {
         var settings = {
-            "allowNewTags":true,
-            "showTagsNumber":10,
-            "preset":[],
-            "tags":[],
+            allowNewTags:true,
+            showTagsNumber:10,
+            preset:[],
+            tags:[],
         };
+
         if(userOptions) {
             $.extend(settings, userOptions);
         }
+
         superblyTagField(this, settings);
+
         return this;
     };
 
@@ -40,15 +43,15 @@
         var currentItem = null;
         var hoverSuggestItems = false;
 
-
         tagField.css('display', 'none');
-        tagField.wrap('<li class="superblyTagInputItem" />');
-        tagField.after('<ul class="superblySuggestItems" />');
-        tagField.after('<input class="superblyTagInput" type="text" autocomplete="false" />');
-        tagField.parent('.superblyTagInputItem').wrap('<ul class="superblyTagItems" />');
-        tagField.parent('.superblyTagInputItem').parent('.superblyTagItems').wrap('<div class="superblyTagfieldDiv" />');
-        tagField.parent('.superblyTagInputItem').parent('.superblyTagItems').parent('.superblyTagfieldDiv').append('<div class="superblyTagfieldClearer" />');
 
+        var superblyMarkup = '<div class="superblyTagfieldDiv"><ul class="superblyTagItems"><li class="superblyTagInputItem"><input class="superblyTagInput" type="text" autocomplete="false"><ul class="superblySuggestItems"></ul></li></ul></div>';
+        tagField.after(superblyMarkup);
+
+        var tagInput = $(".superblyTagInput", tagField.next());
+        var suggestItems = tagInput.next();
+        var inputItem = tagInput.parent();
+        var tagItems = inputItem.parent();
 
         // set presets
         for(i in preset){
@@ -56,29 +59,29 @@
         }
 
         // events
-        tagField.siblings('.superblySuggestItems').mouseover(function(e){
+        suggestItems.mouseover(function(e){
             hoverSuggestItems = true; 
         });
 
-        tagField.siblings('.superblyTagInput').siblings('.superblySuggestItems').mouseleave(function(e){
+        suggestItems.mouseleave(function(e){
             hoverSuggestItems = false; 
         });
 
-        tagField.siblings('.superblyTagInput').keyup(function(e){
+        tagInput.keyup(function(e){
             suggest($(this).val());
         });
 
-        tagField.siblings('.superblyTagInput').focusout(function(e){
+        tagInput.focusout(function(e){
             if(!hoverSuggestItems){
-                tagField.siblings('.superblyTagInput').siblings('.superblySuggestItems').css('display', 'none');
+                suggestItems.css('display', 'none');
             } 
         });
 
-        tagField.siblings('.superblyTagInput').focus(function(e){
+        tagInput.focus(function(e){
             currentValue = null;
         });
 
-        tagField.parent('.superblyTagInputItem').keydown(function(e){
+        tagInput.keydown(function(e){
             if(e.keyCode == 40) {		
                 // arrow key down
                 selectDown();
@@ -90,7 +93,7 @@
                 if(currentItem != null){
                     addItem(currentItem);
                 } else if(allowNewTags){
-                    var value = tagField.siblings('.superblyTagInput').val();
+                    var value = tagInput.val();
                     if(value != null && value != ''){
                         addItem(value);
                     }
@@ -98,17 +101,16 @@
                 return false;
             }else if(e.keyCode == 8){
                 // backspace
-                if(tagField.siblings('.superblyTagInput').val() == ''){
+                if(tagInput.val() == ''){
                     removeLastItem();
                 }
             }
 
         });
 
-        tagField.parent('.superblyTagInputItem').parent('.superblyTagItems').parent('.superblyTagfieldDiv').click(function(e){
-            tagField.siblings('.superblyTagInput').focus();	
+        tagItems.parent().click(function(e){
+            tagInput.focus();	
         });
-
 
         // functions 
         function setValue(){
@@ -123,24 +125,24 @@
                     tagstmp.splice(index,1);
                 }
                 inserted.push(value);
-                tagField.parent('.superblyTagInputItem') .before("<li class='superblyTagItem'><span>" + value + "</span><a>  x</a></li>");
-                tagField.siblings('.superblyTagInput').val("");
+                inputItem.before("<li class='superblyTagItem'><span>" + value + "</span><a> x</a></li>");
+                tagInput.val("");
                 currentValue = null;
                 currentItem = null;
                 // add remove clicke event 
-                var new_index = tagField.parent('.superblyTagInputItem').parent('.superblyTagItems').children('.superblyTagItem').size()-1;
-                $(tagField.parent('.superblyTagInputItem').parent('.superblyTagItems').children('.superblyTagItem')[new_index]).children('a').click(function(e){
+                var new_index = tagItems.children('.superblyTagItem').size()-1;
+                $(tagItems.children('.superblyTagItem')[new_index]).children('a').click(function(e){
                     var value = $($(this).parent('.superblyTagItem').children('span')[0]).text();
                     removeItem(value);
                 });
-                $(tagField.parent('.superblyTagInputItem').parent('.superblyTagItems').children('.superblyTagItem')[new_index]).children('a').hover(function(e){
+                $(tagItems.children('.superblyTagItem')[new_index]).children('a').hover(function(e){
                     $(this).addClass('hover');
                 },function(e){
                     $(this).removeClass('hover');
                 });
             }
-            tagField.siblings('.superblyTagInput').siblings('.superblySuggestItems').css('display', 'none');
-            tagField.siblings('.superblyTagInput').focus();
+            suggestItems.css('display', 'none');
+            tagInput.focus();
             setValue();
         }
 
@@ -154,10 +156,10 @@
             index = jQuery.inArray(value,inserted);
             if(index > -1){
                 inserted.splice(index,1);
-                tagField.parent('.superblyTagInputItem').parent('.superblyTagItems').children(".superblyTagItem:contains('" + value + "')").remove();
+                tagItems.children(".superblyTagItem:contains('" + value + "')").remove();
             }
             tagstmp.sort();
-            tagField.siblings('.superblyTagInput').focus();
+            tagInput.focus();
             setValue();
         }
 
@@ -187,55 +189,57 @@
 
 
         function suggest(value){
-            tagField.siblings('.superblyTagInput').siblings('.superblySuggestItems').show();
+            suggestItems.show();
             if(value == currentValue){
                 return false;
             }
             currentValue = value;
-            tagField.siblings('.superblyTagInput').siblings('.superblySuggestItems').children('.superblySuggestItem').remove();
+            suggestItems.empty();
             var suggestions = getSuggestionsArray(value);
             for(key in suggestions){
-                tagField.siblings('.superblyTagInput').siblings('.superblySuggestItems').append("<li class='superblySuggestItem'>" + suggestions[key] + "</li>");
+                suggestItems.append("<li class='superblySuggestItem'>" + suggestions[key] + "</li>");
             }
 
+            var suggestionItems = suggestItems.children('.superblySuggestItem');
+
             // add click event to suggest items
-            tagField.siblings('.superblyTagInput').siblings('.superblySuggestItems').children('.superblySuggestItem').click(function(e){
+            suggestionItems.click(function(e){
                 addItem($(this).html());
             });
 
             selectedIndex=null;
             if(!allowNewTags){
                 selectedIndex=0;
-                $(tagField.siblings('.superblyTagInput').siblings('.superblySuggestItems').children('.superblySuggestItem')[selectedIndex]).addClass("selected");	
-                currentItem = $(tagField.siblings('.superblyTagInput').siblings('.superblySuggestItems').children('.superblySuggestItem')[selectedIndex]).html();
+                $(suggestionItems[selectedIndex]).addClass("selected");	
+                currentItem = $(suggestionItems[selectedIndex]).html();
             }
         }
 
 
         function selectDown(){
-            var size = tagField.siblings('.superblyTagInput').siblings('.superblySuggestItems').children('.superblySuggestItem').size();
+            var suggestions = suggestItems.children('.superblySuggestItem');
+            var size = suggestions.size();
             if(selectedIndex == null){
                 selectedIndex=0;
             }else if(selectedIndex < size-1){
-                $(tagField.siblings('.superblyTagInput').siblings('.superblySuggestItems').children('.superblySuggestItem')[selectedIndex]).removeClass("selected");
+                $(suggestions[selectedIndex]).removeClass("selected");
                 selectedIndex++;
             }
-            $(tagField.siblings('.superblyTagInput').siblings('.superblySuggestItems').children('.superblySuggestItem')[selectedIndex]).addClass("selected");
-            currentItem = $(tagField.siblings('.superblyTagInput').siblings('.superblySuggestItems').children('.superblySuggestItem')[selectedIndex]).html();
-
+            $(suggestions[selectedIndex]).addClass("selected");
+            currentItem = $(suggestions[selectedIndex]).html();
         }
 
         function selectUp(){
             if(selectedIndex == 0){
                 selectedIndex=null;
                 currentItem = null;
-                tagField.siblings('.superblyTagInput').focus();
+                tagInput.focus();
             } else if(selectedIndex >0){
-                $(tagField.siblings('.superblyTagInput').siblings('.superblySuggestItems').children('.superblySuggestItem')[selectedIndex]).removeClass("selected");
+                var suggestions = suggestItems.children('.superblySuggestItem');
+                $(suggestions[selectedIndex]).removeClass("selected");
                 selectedIndex--;
-                $(tagField.siblings('.superblyTagInput').siblings('.superblySuggestItems').children('.superblySuggestItem')[selectedIndex]).addClass("selected");
-                currentItem = $(tagField.siblings('.superblyTagInput').siblings('.superblySuggestItems').children('.superblySuggestItem')[selectedIndex]).html();
-
+                $(suggestions[selectedIndex]).addClass("selected");
+                currentItem = $(suggestions[selectedIndex]).html();
             }
         }
     }
