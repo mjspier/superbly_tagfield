@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Superbly TagField Demo</title>
+    <link rel="stylesheet" href="superbly-tagfield.css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+    <script type="text/javascript" src="superbly-tagfield-0.1.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            var carTags = ['Afla Romeo','Aston Martin','Audi','Bentley','Bugatti','BMW','Citroen','Cadillac','Chevrolet','Dodge','Daewoo','Ferrari','Ford','Fiat','Honda','Hyundai','Jaguar','Jeep','Kia','Lada','Lexus','Lotus','Maserati','Mazda','Mercedes','Nissan','Opel','Peugeot','Porsche','Rover','Renault','Suzuki','Subaru','Seat','Toyota','Volvo','Vauxhall','VW'];
+            $("#tagger").superblyTagField({
+                allowNewTags: true,
+                showTagsNumber: 10,
+                preset: ['Audi','Bentley'],
+                tags: carTags
+            });
+        });
+    </script>
+</head>
+<body>
+    <input type="text" id="tagger" />
+</body>
+</html>
