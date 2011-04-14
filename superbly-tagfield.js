@@ -7,7 +7,7 @@
  * http://www.superbly.ch/licenses/mit-license.txt
  * http://www.superbly.ch/licenses/gpl-2.0.txt
  *
- * Date: Sun Mar 6 13:55:29 2011 -0500
+ * Date: Sun Apr 14 00:47:29 2011 -0500
  */
 (function($){
     $.fn.superblyTagField = function(userOptions) {
