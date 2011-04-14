@@ -104,6 +104,9 @@
                 if(tagInput.val() == ''){
                     removeLastItem();
                 }
+                updateTagInputWidth();
+            } else {
+                updateTagInputWidth();
             }
 
         });
@@ -115,6 +118,20 @@
         // functions 
         function setValue(){
             tagField.val(inserted.join(','));
+        }
+
+        function updateTagInputWidth()
+        {
+            /* 
+            * To make tag wrapping behave as expected, dynamically adjust
+            * the tag input's width to its content's width
+            * The best way to get the text's width in pixels is to add it 
+            * to the DOM, grab the width, then remove it from the DOM.
+            */
+            var temp = $("<span />").text(tagInput.val()).appendTo(inputItem);
+            var width = temp.width();
+            temp.remove();
+            tagInput.width(width + 20);
         }
 
         function addItem(value){
@@ -135,13 +152,9 @@
                     var value = $($(this).parent('.superblyTagItem').children('span')[0]).text();
                     removeItem(value);
                 });
-                $(tagList.children('.superblyTagItem')[new_index]).children('a').hover(function(e){
-                    $(this).addClass('hover');
-                },function(e){
-                    $(this).removeClass('hover');
-                });
             }
             suggestList.css('display', 'none');
+            updateTagInputWidth();
             tagInput.focus();
             setValue();
         }
