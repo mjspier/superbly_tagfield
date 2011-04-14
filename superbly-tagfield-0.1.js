@@ -45,13 +45,13 @@
 
         tagField.css('display', 'none');
 
-        var superblyMarkup = '<div class="superblyTagfieldDiv"><ul class="superblyTagItems"><li class="superblyTagInputItem"><input class="superblyTagInput" type="text" autocomplete="false"><ul class="superblySuggestItems"></ul></li></ul></div>';
+        var superblyMarkup = '<div class="superblyTagfieldDiv"><ul class="superblyTagItems"><li class="superblyTagInputItem"><input class="superblyTagInput" type="text" autocomplete="false"><ul class="superblySuggestItems"></ul></li></ul><div class="superblyTagfieldClearer"></div></div>';
         tagField.after(superblyMarkup);
 
         var tagInput = $(".superblyTagInput", tagField.next());
-        var suggestItems = tagInput.next();
+        var suggestList = tagInput.next();
         var inputItem = tagInput.parent();
-        var tagItems = inputItem.parent();
+        var tagList = inputItem.parent();
 
         // set presets
         for(i in preset){
@@ -59,11 +59,11 @@
         }
 
         // events
-        suggestItems.mouseover(function(e){
+        suggestList.mouseover(function(e){
             hoverSuggestItems = true; 
         });
 
-        suggestItems.mouseleave(function(e){
+        suggestList.mouseleave(function(e){
             hoverSuggestItems = false; 
         });
 
@@ -73,7 +73,7 @@
 
         tagInput.focusout(function(e){
             if(!hoverSuggestItems){
-                suggestItems.css('display', 'none');
+                suggestList.css('display', 'none');
             } 
         });
 
@@ -108,7 +108,7 @@
 
         });
 
-        tagItems.parent().click(function(e){
+        tagList.parent().click(function(e){
             tagInput.focus();	
         });
 
@@ -130,18 +130,18 @@
                 currentValue = null;
                 currentItem = null;
                 // add remove clicke event 
-                var new_index = tagItems.children('.superblyTagItem').size()-1;
-                $(tagItems.children('.superblyTagItem')[new_index]).children('a').click(function(e){
+                var new_index = tagList.children('.superblyTagItem').size()-1;
+                $(tagList.children('.superblyTagItem')[new_index]).children('a').click(function(e){
                     var value = $($(this).parent('.superblyTagItem').children('span')[0]).text();
                     removeItem(value);
                 });
-                $(tagItems.children('.superblyTagItem')[new_index]).children('a').hover(function(e){
+                $(tagList.children('.superblyTagItem')[new_index]).children('a').hover(function(e){
                     $(this).addClass('hover');
                 },function(e){
                     $(this).removeClass('hover');
                 });
             }
-            suggestItems.css('display', 'none');
+            suggestList.css('display', 'none');
             tagInput.focus();
             setValue();
         }
@@ -156,7 +156,7 @@
             index = jQuery.inArray(value,inserted);
             if(index > -1){
                 inserted.splice(index,1);
-                tagItems.children(".superblyTagItem:contains('" + value + "')").remove();
+                tagList.children(".superblyTagItem:contains('" + value + "')").remove();
             }
             tagstmp.sort();
             tagInput.focus();
@@ -189,18 +189,18 @@
 
 
         function suggest(value){
-            suggestItems.show();
+            suggestList.show();
             if(value == currentValue){
                 return false;
             }
             currentValue = value;
-            suggestItems.empty();
+            suggestList.empty();
             var suggestions = getSuggestionsArray(value);
             for(key in suggestions){
-                suggestItems.append("<li class='superblySuggestItem'>" + suggestions[key] + "</li>");
+                suggestList.append("<li class='superblySuggestItem'>" + suggestions[key] + "</li>");
             }
 
-            var suggestionItems = suggestItems.children('.superblySuggestItem');
+            var suggestionItems = suggestList.children('.superblySuggestItem');
 
             // add click event to suggest items
             suggestionItems.click(function(e){
@@ -217,7 +217,7 @@
 
 
         function selectDown(){
-            var suggestions = suggestItems.children('.superblySuggestItem');
+            var suggestions = suggestList.children('.superblySuggestItem');
             var size = suggestions.size();
             if(selectedIndex == null){
                 selectedIndex=0;
@@ -235,7 +235,7 @@
                 currentItem = null;
                 tagInput.focus();
             } else if(selectedIndex >0){
-                var suggestions = suggestItems.children('.superblySuggestItem');
+                var suggestions = suggestList.children('.superblySuggestItem');
                 $(suggestions[selectedIndex]).removeClass("selected");
                 selectedIndex--;
                 $(suggestions[selectedIndex]).addClass("selected");
