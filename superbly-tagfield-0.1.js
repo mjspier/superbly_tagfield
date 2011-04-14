@@ -27,6 +27,13 @@
         return this;
     };
 
+    var keyMap = {
+        downArrow:40,
+        upArrow:38,
+        enter:13,
+        tab:9,
+        backspace:8
+    }
     function superblyTagField(tagField,settings) {
 
         var tags = settings.tags.sort();
@@ -82,14 +89,11 @@
         });
 
         tagInput.keydown(function(e){
-            if(e.keyCode == 40) {		
-                // arrow key down
+            if(e.keyCode == keyMap.downArrow) {		
                 selectDown();
-            }else if(e.keyCode == 38) {
-                // arrow key up
+            }else if(e.keyCode == keyMap.upArrow) {
                 selectUp()
-            }else if(e.keyCode == 13) {
-                // enter
+            }else if(e.keyCode == keyMap.enter || e.keyCode == keyMap.tab) {
                 if(currentItem != null){
                     addItem(currentItem);
                 } else if(allowNewTags){
@@ -98,8 +102,9 @@
                         addItem(value);
                     }
                 }
-                return false;
-            }else if(e.keyCode == 8){
+                // prevent default action for enter
+                return e.keyCode != keyMap.enter; 
+            }else if(e.keyCode == keyMap.backspace){
                 // backspace
                 if(tagInput.val() == ''){
                     removeLastItem();
@@ -125,7 +130,7 @@
             /* 
             * To make tag wrapping behave as expected, dynamically adjust
             * the tag input's width to its content's width
-            * The best way to get the text's width in pixels is to add it 
+            * The best way to get the content's width in pixels is to add it 
             * to the DOM, grab the width, then remove it from the DOM.
             */
             var temp = $("<span />").text(tagInput.val()).appendTo(inputItem);
