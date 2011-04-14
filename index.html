@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Superbly TagField Demo</title>
+    <link rel="stylesheet" href="superbly-tagfield.css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+    <script type="text/javascript" src="superbly-tagfield.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            var carTags = ['Alfa Romeo','Aston Martin','Audi','Bentley','Bugatti','BMW','Citroen','Cadillac','Chevrolet','Dodge','Daewoo','Ferrari','Ford','Fiat','Honda','Hyundai','Jaguar','Jeep','Kia','Lada','Lexus','Lotus','Maserati','Mazda','Mercedes','Nissan','Opel','Peugeot','Porsche','Rover','Renault','Suzuki','Subaru','Seat','Toyota','Volvo','Vauxhall','VW'];
+
+            // Initialize Demo 1
+            $("#tagfield1").superblyTagField({
+                allowNewTags: false,
+                showTagsNumber: 10,
+                preset: ['Audi','Bentley'],
+                tags: carTags
+            });
+
+            // Initialize Demo 2
+            $("#tagfield2").superblyTagField({
+                allowNewTags: true,
+                showTagsNumber: 10,
+                preset: ['Audi','Bugatti'],
+                tags: carTags
+            });
+
+            // Display an alert dialog with the tags when the "show tags" buttons are pressed
+            $('#tagDemoButton1').click(function(e){
+                alert($("#tagfield1").val());
+            });
+            $('#tagDemoButton2').click(function(e){
+                alert($("#tagfield2").val());
+            });
+        });
+    </script>
+</head>
+<body>
+    <h2>Superbly Tagfield Demo</h2> 
+    <p>Demo 1 (don't allow new tags):</p> 
+    <input type="text" id="tagfield1" />
+    <input style="margin:3px;" type="button" id="tagDemoButton1" value="show tags"> 
+    <p>Demo 2 (allow new tags):</p> 
+    <input type="text" id="tagfield2" />
+    <input style="margin:3px;" type="button" id="tagDemoButton2" value="show tags"> 
+</body>
+</html>

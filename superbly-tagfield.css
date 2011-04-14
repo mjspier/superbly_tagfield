@@ -1,5 +1,4 @@
 .superblyTagfieldDiv{
-	width: 100%;
 	min-height: 27px;
 	border: solid 1px;
     background-color: #FFFFFF;
@@ -26,7 +25,6 @@
 .superblyTagInput{
 	border: none;
 	outline: none;
-	min-width: 100px;
 	padding: 0px;
 	margin: 0px;
 }
@@ -58,16 +56,17 @@
     font-style:normal;
 }
 
-.superblyTagItems .superblyTagItem a:hover{
+.superblyTagItems .superblyTagItem a:hover {
     color: #FFFFFF;
 }
 
-.superblyTagItems .superblyTagItem a.hover{
+.superblyTagItems .superblyTagItem a.hover {
     color: #FFFFFF;
 }
 
 
 .superblySuggestItems{
+    min-width:100px;
  	position: absolute;
 	left: 0;
 	top: 30px;
@@ -87,7 +86,7 @@
     color: #000000;
 }
    
-.superblySuggestItems .superblySuggestItem:hover{
+.superblySuggestItems .superblySuggestItem:hover {
    	cursor: pointer;
     border: solid 1px #181B38;
 }
