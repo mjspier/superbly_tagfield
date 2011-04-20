@@ -1,0 +1,37 @@
+superbly fields 
+http://www.superbly.ch
+
+Copyright 2011, Manuel Spierenburg
+Dual licensed under the MIT or GPL Version 2 licenses.
+http://www.superbly.ch/licenses/mit-license.txt
+http://www.superbly.ch/licenses/gpl-2.0.txt
+
+thanks to Will Fuqua for his contribution
+
+
+#############
+# changelog #
+#############
+version 0.1
+- removed the car list from the minified version
+- moved the project to github
+
+version 0.2
+- fixed bug found by noah
+
+version 0.3 (thanks to waf)
+- refactor into jquery extension
+- make tag input dynamically resize to fix wrapping
+ 
+##############
+# descrption #
+##############
+this is a delicious like tag field which allows to add and delete tags to a field.
+
+Notes:
++ allows new tags or only tags from array
++ can set preset tags
++ adding tags by mouse or by keyboard input
++ doesn’t allow duplicated entries
++ input field acts like a normal input field
+- no JSON or ajax support
