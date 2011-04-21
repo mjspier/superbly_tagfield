@@ -15,7 +15,7 @@
             allowNewTags:true,
             showTagsNumber:10,
             preset:[],
-            tags:[],
+            tags:[]
         };
 
         if(userOptions) {
