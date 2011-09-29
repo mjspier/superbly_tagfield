@@ -26,12 +26,24 @@
                 tags: carTags
             });
 
+						// Initialize Demo 2
+            $("#tagfield3").superblyTagField({
+                allowNewTags: true,
+                showTagsNumber: 10,
+								addItemOnBlur: true,
+                preset: ['Audi','Bugatti'],
+                tags: carTags
+            });
+
             // Display an alert dialog with the tags when the "show tags" buttons are pressed
             $('#tagDemoButton1').click(function(e){
                 alert($("#tagfield1").val());
             });
             $('#tagDemoButton2').click(function(e){
                 alert($("#tagfield2").val());
+            });
+						$('#tagDemoButton3').click(function(e){
+                alert($("#tagfield3").val());
             });
         });
     </script>
@@ -43,6 +55,9 @@
     <input style="margin:3px;" type="button" id="tagDemoButton1" value="show tags"> 
     <p>Demo 2 (allow new tags):</p> 
     <input type="text" id="tagfield2" />
-    <input style="margin:3px;" type="button" id="tagDemoButton2" value="show tags"> 
+    <input style="margin:3px;" type="button" id="tagDemoButton2" value="show tags">
+		<p>Demo 3 (allow new tags, add item on blur):</p> 
+    <input type="text" id="tagfield3" />
+    <input style="margin:3px;" type="button" id="tagDemoButton3" value="show tags">
 </body>
 </html>
