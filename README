@@ -22,6 +22,9 @@ version 0.2
 version 0.3 (thanks to waf)
 - refactor into jquery extension
 - make tag input dynamically resize to fix wrapping
+
+version 0.4 (thanks romeroadrian)
+- add items by tab
  
 ##############
 # descrption #
