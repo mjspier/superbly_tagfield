@@ -14,6 +14,7 @@
         var settings = {
             allowNewTags:true,
             showTagsNumber:10,
+			addItemOnBlur:false,
             preset:[],
             tags:[]
         };
@@ -40,6 +41,7 @@
         var preset = settings.preset;
         var allowNewTags = settings.allowNewTags;
         var showTagsNumber = settings.showTagsNumber;
+		var addItemOnBlur = settings.addItemOnBlur;
 
         var tagstmp = tags.slice();
 
@@ -94,14 +96,7 @@
             }else if(e.keyCode == keyMap.upArrow) {
                 selectUp()
             }else if(e.keyCode == keyMap.enter || e.keyCode == keyMap.tab) {
-                if(currentItem != null){
-                    addItem(currentItem);
-                } else if(allowNewTags){
-                    var value = tagInput.val();
-                    if(value != null && value != ''){
-                        addItem(value);
-                    }
-                }
+                checkForItem();
                 // prevent default action for enter
                 return e.keyCode != keyMap.enter; 
             }else if(e.keyCode == keyMap.backspace){
@@ -115,6 +110,12 @@
             }
 
         });
+
+		if (addItemOnBlur) {
+			tagInput.blur(function(e){
+				checkForItem();
+			});
+		}
 
         tagList.parent().click(function(e){
             tagInput.focus();	
@@ -138,6 +139,17 @@
             temp.remove();
             tagInput.width(width + 20);
         }
+
+		function checkForItem(value){
+			if(currentItem != null){
+                addItem(currentItem);
+            } else if(allowNewTags){
+                var value = tagInput.val();
+                if(value != null && value != ''){
+                    addItem(value);
+                }
+            }
+		}
 
         function addItem(value){
             var index = jQuery.inArray(value,tagstmp);
