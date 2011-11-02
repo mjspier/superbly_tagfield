@@ -5,7 +5,7 @@
 	<title>Superbly TagField Demo</title>
     <link rel="stylesheet" href="superbly-tagfield.css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
-    <script type="text/javascript" src="superbly-tagfield.js"></script>
+    <script type="text/javascript" src="superbly-tagfield.min.js"></script>
     <script type="text/javascript">
         $(function() {
             var carTags = ['Alfa Romeo','Aston Martin','Audi','Bentley','Bugatti','BMW','Citroen','Cadillac','Chevrolet','Dodge','Daewoo','Ferrari','Ford','Fiat','Honda','Hyundai','Jaguar','Jeep','Kia','Lada','Lexus','Lotus','Maserati','Mazda','Mercedes','Nissan','Opel','Peugeot','Porsche','Rover','Renault','Suzuki','Subaru','Seat','Toyota','Volvo','Vauxhall','VW'];
@@ -26,11 +26,20 @@
                 tags: carTags
             });
 
-						// Initialize Demo 2
+			// Initialize Demo 3
             $("#tagfield3").superblyTagField({
                 allowNewTags: true,
                 showTagsNumber: 10,
-								addItemOnBlur: true,
+				addItemOnBlur: true,
+                preset: ['Audi','Bugatti'],
+                tags: carTags
+            });
+            
+            // Initialize Demo 4
+            $("#tagfield4").superblyTagField({
+                allowNewTags: false,
+                allowedTagsNumber: 5,
+                showTagsNumber: 10,
                 preset: ['Audi','Bugatti'],
                 tags: carTags
             });
@@ -42,8 +51,11 @@
             $('#tagDemoButton2').click(function(e){
                 alert($("#tagfield2").val());
             });
-						$('#tagDemoButton3').click(function(e){
+			$('#tagDemoButton3').click(function(e){
                 alert($("#tagfield3").val());
+            });
+            $('#tagDemoButton4').click(function(e){
+                alert($("#tagfield4").val());
             });
         });
     </script>
@@ -56,8 +68,11 @@
     <p>Demo 2 (allow new tags):</p> 
     <input type="text" id="tagfield2" />
     <input style="margin:3px;" type="button" id="tagDemoButton2" value="show tags">
-		<p>Demo 3 (allow new tags, add item on blur):</p> 
+	<p>Demo 3 (allow new tags, add item on blur):</p> 
     <input type="text" id="tagfield3" />
     <input style="margin:3px;" type="button" id="tagDemoButton3" value="show tags">
+    <p>Demo 4 (allow only 5 tags):</p> 
+    <input type="text" id="tagfield4" />
+    <input style="margin:3px;" type="button" id="tagDemoButton4" value="show tags">
 </body>
 </html>

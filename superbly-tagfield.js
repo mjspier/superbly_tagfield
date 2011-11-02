@@ -1,5 +1,5 @@
 /*!
- * superbly tagfield v0.1
+ * superbly tagfield v0.5
  * http://www.superbly.ch
  *
  * Copyright 2011, Manuel Spierenburg
@@ -7,12 +7,13 @@
  * http://www.superbly.ch/licenses/mit-license.txt
  * http://www.superbly.ch/licenses/gpl-2.0.txt
  *
- * Date: Sun Apr 14 00:47:29 2011 -0500
+ * Date: 02-11-2011
  */
 (function($){
     $.fn.superblyTagField = function(userOptions) {
         var settings = {
             allowNewTags:true,
+            allowedTagsNumber:false,
             showTagsNumber:10,
 			addItemOnBlur:false,
             preset:[],
@@ -40,6 +41,7 @@
         var tags = settings.tags.sort();
         var preset = settings.preset;
         var allowNewTags = settings.allowNewTags;
+        var allowedTagsNumber = settings.allowedTagsNumber;
         var showTagsNumber = settings.showTagsNumber;
 		var addItemOnBlur = settings.addItemOnBlur;
 
@@ -77,7 +79,9 @@
         });
 
         tagInput.keyup(function(e){
-            suggest($(this).val());
+        	if((allowedTagsNumber == false) || (inserted.length < allowedTagsNumber)){
+            	suggest($(this).val());
+            }
         });
 
         tagInput.focusout(function(e){
@@ -141,6 +145,11 @@
         }
 
 		function checkForItem(value){
+			if(allowedTagsNumber != false){
+				if(inserted.length >= allowedTagsNumber){
+					return;
+				}
+			}
 			if(currentItem != null){
                 addItem(currentItem);
             } else if(allowNewTags){
@@ -174,6 +183,19 @@
             updateTagInputWidth();
             tagInput.focus();
             setValue();
+            if((allowedTagsNumber != false) && (inserted.length >= allowedTagsNumber)){
+				disableAddItem()
+			}
+        }
+        
+        function disableAddItem(){
+        	tagInput.attr('disabled','disabled');
+			suggestList.css('display','none');
+        }
+        
+        function enableAddItem(){
+        	tagInput.removeAttr('disabled');
+			suggestList.show();
         }
 
 
@@ -191,6 +213,9 @@
             tagstmp.sort();
             tagInput.focus();
             setValue();
+            if((allowedTagsNumber != false) && (inserted.length < allowedTagsNumber)){
+				enableAddItem();
+			}
         }
 
         function removeLastItem(){
