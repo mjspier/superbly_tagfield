@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Superbly TagField Demo</title>
     <link rel="stylesheet" href="superbly-tagfield.css" />
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+    <script type="text/javascript" src=" https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
     <script type="text/javascript" src="superbly-tagfield.min.js"></script>
     <script type="text/javascript">
         $(function() {
@@ -43,6 +43,15 @@
                 preset: ['Audi','Bugatti'],
                 tags: carTags
             });
+            
+             // Initialize Demo 5
+            $("#tagfield5").superblyTagField({
+            	caseSensitive: false,
+                allowNewTags: true,
+                showTagsNumber: 10,
+                preset: ['Audi','Bugatti'],
+                tags: carTags
+            });
 
             // Display an alert dialog with the tags when the "show tags" buttons are pressed
             $('#tagDemoButton1').click(function(e){
@@ -56,6 +65,9 @@
             });
             $('#tagDemoButton4').click(function(e){
                 alert($("#tagfield4").val());
+            });
+             $('#tagDemoButton5').click(function(e){
+                alert($("#tagfield5").val());
             });
         });
     </script>
@@ -74,5 +86,8 @@
     <p>Demo 4 (allow only 5 tags):</p> 
     <input type="text" id="tagfield4" />
     <input style="margin:3px;" type="button" id="tagDemoButton4" value="show tags">
+    <p>Demo 5 (allow new tags case insensitive):</p> 
+    <input type="text" id="tagfield5" />
+    <input style="margin:3px;" type="button" id="tagDemoButton5" value="show tags">
 </body>
 </html>

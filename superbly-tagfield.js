@@ -1,5 +1,5 @@
 /*!
- * superbly tagfield v0.5
+ * superbly tagfield v0.6
  * http://www.superbly.ch
  *
  * Copyright 2011, Manuel Spierenburg
@@ -7,11 +7,12 @@
  * http://www.superbly.ch/licenses/mit-license.txt
  * http://www.superbly.ch/licenses/gpl-2.0.txt
  *
- * Date: 02-11-2011
+ * Date: 23-11-2011
  */
 (function($){
     $.fn.superblyTagField = function(userOptions) {
         var settings = {
+        	caseSensitive:true,
             allowNewTags:true,
             allowedTagsNumber:false,
             showTagsNumber:10,
@@ -40,6 +41,7 @@
 
         var tags = settings.tags.sort();
         var preset = settings.preset;
+        var caseSensitive = settings.caseSensitive;
         var allowNewTags = settings.allowNewTags;
         var allowedTagsNumber = settings.allowedTagsNumber;
         var showTagsNumber = settings.showTagsNumber;
@@ -160,9 +162,18 @@
             }
 		}
 
-        function addItem(value){
+        function addItem(value){          
+            var caseInSensitiveFound = false;
+            if(!caseSensitive){
+				$.each(inserted,function(index, val) { 
+  					if (caseInSensitiveFound == false && (val.toLowerCase() == value.toLowerCase())) {
+   						caseInSensitiveFound = true;
+   					 	return true;
+  					}
+				});
+            }
             var index = jQuery.inArray(value,tagstmp);
-            if((jQuery.inArray(value,inserted) == -1) && ( index > -1 || allowNewTags)){
+            if((jQuery.inArray(value,inserted) == -1) && ( index > -1 || allowNewTags) && !caseInSensitiveFound){
                 //delete from tags
                 if(index >-1){
                     tagstmp.splice(index,1);

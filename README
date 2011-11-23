@@ -6,13 +6,58 @@ Dual licensed under the MIT or GPL Version 2 licenses.
 http://www.superbly.ch/licenses/mit-license.txt
 http://www.superbly.ch/licenses/gpl-2.0.txt
 
+
+##############
+# descrption #
+##############
+this is a delicious like tag field which allows to add and delete tags to a field.
+
+Notes:
++ allows new tags or only tags from array
++ allow only a certain amount of tags
++ can set preset tags
++ adding tags by mouse or by keyboard input
++ doesn’t allow duplicated entries
++ input field acts like a normal input field
+- no JSON or ajax support
+
+
+################
+# installation #
+################
+- add resources to your page
+
+<script type="text/javascript" src=" https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+<script src="superbly-tagfield.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="superbly-tagfield.css">
+
+#########
+# usage #
+#########
+- add an input field
+- add tagfield support to the input field
+
+example:
+<script type="text/javascript">
+        $(function() {
+            $("#tagfield1").superblyTagField({
+                allowNewTags: false,
+                showTagsNumber: 10,
+                preset: ['Audi','Bentley'],
+                tags: ['Alfa Romeo','Aston Martin','Audi','Bentley','Bugatti']
+            });
+        });
+</script>
+<input type="text" id="tagfield1" />
+
 ###########
 # options #
 ###########
-allowNewTags: 		true or false
-addItemOnBlur:  	true of false
-allowTagsNumber:	number of allowed tags
-showTagsNumber: 	number of shown suggestions tags
+allowNewTags: 		true or false (default true)
+addItemOnBlur:  	true or false (default false)
+caseSensitive: 		true or false (default true)
+allowTagsNumber:	number of allowed tags (default infinite)
+showTagsNumber: 	number of shown suggestions tags (default 10)
 preset:      		array of preset tags
 tags:           	array of tags
 
@@ -36,17 +81,6 @@ version 0.4 (thanks romeroadrian)
 
 version 0.5
 - add allowed tags number attribute
- 
-##############
-# descrption #
-##############
-this is a delicious like tag field which allows to add and delete tags to a field.
 
-Notes:
-+ allows new tags or only tags from array
-+ allow only a certain amount of tags
-+ can set preset tags
-+ adding tags by mouse or by keyboard input
-+ doesn’t allow duplicated entries
-+ input field acts like a normal input field
-- no JSON or ajax support
+version 0.6
+- add case sensitive attribute
