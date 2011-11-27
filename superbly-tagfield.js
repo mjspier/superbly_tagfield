@@ -7,7 +7,7 @@
  * http://www.superbly.ch/licenses/mit-license.txt
  * http://www.superbly.ch/licenses/gpl-2.0.txt
  *
- * Date: 23-11-2011
+ * Date: 27-11-2011
  */
 (function($){
     $.fn.superblyTagField = function(userOptions) {
@@ -68,7 +68,7 @@
 
         // set presets
         for(i in preset){
-            addItem(preset[i]);
+            addItemWithFocus(preset[i],false);
         }
 
         // events
@@ -161,8 +161,12 @@
                 }
             }
 		}
+		
+		function addItem(value){  
+			 addItemWithFocus(value,true); 
+		}
 
-        function addItem(value){          
+        function addItemWithFocus(value,setFocusToInputField){          
             var caseInSensitiveFound = false;
             if(!caseSensitive){
 				$.each(inserted,function(index, val) { 
@@ -192,7 +196,9 @@
             }
             suggestList.css('display', 'none');
             updateTagInputWidth();
-            tagInput.focus();
+            if(setFocusToInputField){
+            	tagInput.focus();
+            }
             setValue();
             if((allowedTagsNumber != false) && (inserted.length >= allowedTagsNumber)){
 				disableAddItem()
