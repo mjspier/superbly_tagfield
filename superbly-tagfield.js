@@ -118,6 +118,7 @@
         });
 
 		if (addItemOnBlur) {
+			currentItem = $(e.target).parent().find('.superblySuggestItem:hover').html();
 			tagInput.blur(function(e){
 				checkForItem();
 			});
