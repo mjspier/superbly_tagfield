@@ -53,6 +53,21 @@
                 tags: carTags
             });
 
+             // Initialize Demo 6
+            $("#tagfield6").superblyTagField({
+                caseSensitive: false,
+                allowNewTags: true,
+                showTagsNumber: 10,
+                tagValidator: function(tag) {
+                    var onlyLetterRegex = new RegExp(/[^A-Za-z]/);
+                    if(tag.length < 8 && !onlyLetterRegex.test(tag)) {
+                        return true;
+                    }
+                    alert('You must enter a tag less than 8 characters that only contains letters');
+                    return false;
+                }
+            });
+
             // Display an alert dialog with the tags when the "show tags" buttons are pressed
             $('#tagDemoButton1').click(function(e){
                 alert($("#tagfield1").val());
@@ -69,6 +84,9 @@
              $('#tagDemoButton5').click(function(e){
                 alert($("#tagfield5").val());
             });
+            $('#tagDemoButton6').click(function(e){
+                 alert($("#tagfield6").val());
+             });
         });
     </script>
 </head>
@@ -89,5 +107,8 @@
     <p>Demo 5 (allow new tags case insensitive):</p> 
     <input type="text" id="tagfield5" />
     <input style="margin:3px;" type="button" id="tagDemoButton5" value="show tags">
+    <p>Demo 6 (tag validator that only accepts letters and tags under 10 characters):</p> 
+    <input type="text" id="tagfield6" />
+    <input style="margin:3px;" type="button" id="tagDemoButton6" value="show tags">
 </body>
 </html>

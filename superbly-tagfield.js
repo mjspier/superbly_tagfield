@@ -18,7 +18,8 @@
             showTagsNumber:10,
 			addItemOnBlur:false,
             preset:[],
-            tags:[]
+            tags:[],
+            tagValidator: function(tag) { return true; }
         };
 
         if(userOptions) {
@@ -46,6 +47,7 @@
         var allowedTagsNumber = settings.allowedTagsNumber;
         var showTagsNumber = settings.showTagsNumber;
 		var addItemOnBlur = settings.addItemOnBlur;
+        var tagValidator = settings.tagValidator;
 
         var tagstmp = tags.slice();
 
@@ -153,10 +155,16 @@
 				}
 			}
 			if(currentItem != null){
+                if(tagValidator(currentItem) === false) {
+                    return;
+                }
                 addItem(currentItem);
             } else if(allowNewTags){
                 var value = tagInput.val();
                 if(value != null && value != ''){
+                    if(tagValidator(value) === false) {
+                        return;
+                    }
                     addItem(value);
                 }
             }
