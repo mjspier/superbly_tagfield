@@ -58,8 +58,9 @@ addItemOnBlur:  	true or false (default false)
 caseSensitive: 		true or false (default true)
 allowTagsNumber:	number of allowed tags (default infinite)
 showTagsNumber: 	number of shown suggestions tags (default 10)
-preset:      		array of preset tags
+preset:      		  array of preset tags
 tags:           	array of tags
+tagValidator:     function that takes in param tag and return boolean whether or not it should be added
 
 
 #############
