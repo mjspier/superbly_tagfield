@@ -18,7 +18,8 @@
             showTagsNumber:10,
 			addItemOnBlur:false,
             preset:[],
-            tags:[]
+            tags:[],
+            onRemove:function(tag) { return true; }
         };
 
         if(userOptions) {
@@ -46,6 +47,7 @@
         var allowedTagsNumber = settings.allowedTagsNumber;
         var showTagsNumber = settings.showTagsNumber;
 		var addItemOnBlur = settings.addItemOnBlur;
+        var onRemove = settings.onRemove;
 
         var tagstmp = tags.slice();
 
@@ -217,6 +219,9 @@
 
 
         function removeItem(value){
+            if(onRemove(value) === false) {
+                return false;
+            }
             var index = jQuery.inArray(value,tags);
             var tmpIndex = jQuery.inArray(value,tagstmp);
             if(index > -1 && tmpIndex == -1){
