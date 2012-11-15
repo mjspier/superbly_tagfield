@@ -60,6 +60,7 @@ allowTagsNumber:	number of allowed tags (default infinite)
 showTagsNumber: 	number of shown suggestions tags (default 10)
 preset:      		array of preset tags
 tags:           	array of tags
+onRemove:         a function that runs before a tag is removed and discontinues with removal if the return value is false
 
 
 #############
