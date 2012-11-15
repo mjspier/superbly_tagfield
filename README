@@ -1,4 +1,4 @@
-superbly fields 
+superbly fields
 http://www.superbly.ch
 
 Copyright 2011, Manuel Spierenburg
@@ -58,7 +58,7 @@ addItemOnBlur:  	true or false (default false)
 caseSensitive: 		true or false (default true)
 allowTagsNumber:	number of allowed tags (default infinite)
 showTagsNumber: 	number of shown suggestions tags (default 10)
-preset:      		array of preset tags
+preset:      		  array of preset tags
 tags:           	array of tags
 onRemove:         a function that runs before a tag is removed and discontinues with removal if the return value is false
 
