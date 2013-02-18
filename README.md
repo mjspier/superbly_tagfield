@@ -16,6 +16,10 @@ this is a delicious like tag field which allows to add and delete tags to an inp
 * doesn’t allow duplicated entries
 * input field acts like a normal input field
 
+demo
+----
+http://www.superbly.ch/examples/tagfield
+
 installation
 ------------
 * add resources to your page:
@@ -50,14 +54,14 @@ example:
 options
 -------
 
-allowNewTags: 		true or false (default true)
-addItemOnBlur:  	true or false (default false)
-caseSensitive: 		true or false (default true)
-allowTagsNumber:	number of allowed tags (default infinite)
-showTagsNumber: 	number of shown suggestions tags (default 10)
-preset:      		  array of preset tags
-tags:           	array of tags
-onRemove:         a function that runs before a tag is removed and discontinues with removal if the return value is false
+* allowNewTags:     true or false (default true)
+* addItemOnBlur:  	true or false (default false)
+* caseSensitive: 	true or false (default true)
+* allowTagsNumber:	number of allowed tags (default infinite)
+* showTagsNumber: 	number of shown suggestions tags (default 10)
+* preset:      		array of preset tags
+* tags:           	array of tags
+* onRemove:         a function that runs before a tag is removed and discontinues with removal if the return value is false
 
 changelog
 ---------
