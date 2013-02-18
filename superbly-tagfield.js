@@ -18,7 +18,8 @@
             showTagsNumber:10,
 			addItemOnBlur:false,
             preset:[],
-            tags:[]
+            tags:[],
+            onRemove:function(tag) { return true; }
         };
 
         if(userOptions) {
@@ -46,6 +47,7 @@
         var allowedTagsNumber = settings.allowedTagsNumber;
         var showTagsNumber = settings.showTagsNumber;
 		var addItemOnBlur = settings.addItemOnBlur;
+        var onRemove = settings.onRemove;
 
         var tagstmp = tags.slice();
 
@@ -73,11 +75,11 @@
 
         // events
         suggestList.mouseover(function(e){
-            hoverSuggestItems = true; 
+            hoverSuggestItems = true;
         });
 
         suggestList.mouseleave(function(e){
-            hoverSuggestItems = false; 
+            hoverSuggestItems = false;
         });
 
         tagInput.keyup(function(e){
@@ -89,7 +91,7 @@
         tagInput.focusout(function(e){
             if(!hoverSuggestItems){
                 suggestList.css('display', 'none');
-            } 
+            }
         });
 
         tagInput.focus(function(e){
@@ -97,14 +99,14 @@
         });
 
         tagInput.keydown(function(e){
-            if(e.keyCode == keyMap.downArrow) {		
+            if(e.keyCode == keyMap.downArrow) {
                 selectDown();
             }else if(e.keyCode == keyMap.upArrow) {
                 selectUp()
             }else if(e.keyCode == keyMap.enter || e.keyCode == keyMap.tab) {
                 checkForItem();
                 // prevent default action for enter
-                return e.keyCode != keyMap.enter; 
+                return e.keyCode != keyMap.enter;
             }else if(e.keyCode == keyMap.backspace){
                 // backspace
                 if(tagInput.val() == ''){
@@ -124,20 +126,20 @@
 		}
 
         tagList.parent().click(function(e){
-            tagInput.focus();	
+            tagInput.focus();
         });
 
-        // functions 
+        // functions
         function setValue(){
             tagField.val(inserted.join(','));
         }
 
         function updateTagInputWidth()
         {
-            /* 
+            /*
             * To make tag wrapping behave as expected, dynamically adjust
             * the tag input's width to its content's width
-            * The best way to get the content's width in pixels is to add it 
+            * The best way to get the content's width in pixels is to add it
             * to the DOM, grab the width, then remove it from the DOM.
             */
             var temp = $("<span />").text(tagInput.val()).appendTo(inputItem);
@@ -161,15 +163,15 @@
                 }
             }
 		}
-		
-		function addItem(value){  
-			 addItemWithFocus(value,true); 
+
+		function addItem(value){
+			 addItemWithFocus(value,true);
 		}
 
-        function addItemWithFocus(value,setFocusToInputField){          
+        function addItemWithFocus(value,setFocusToInputField){
             var caseInSensitiveFound = false;
             if(!caseSensitive){
-				$.each(inserted,function(index, val) { 
+				$.each(inserted,function(index, val) {
   					if (caseInSensitiveFound == false && (val.toLowerCase() == value.toLowerCase())) {
    						caseInSensitiveFound = true;
    					 	return true;
@@ -187,7 +189,7 @@
                 tagInput.val("");
                 currentValue = null;
                 currentItem = null;
-                // add remove click event 
+                // add remove click event
                 var new_index = tagList.children('.superblyTagItem').size()-1;
                 $(tagList.children('.superblyTagItem')[new_index]).children('a').click(function(e){
                     var value = $($(this).parent('.superblyTagItem').children('span')[0]).text();
@@ -204,12 +206,12 @@
 				disableAddItem()
 			}
         }
-        
+
         function disableAddItem(){
         	tagInput.attr('disabled','disabled');
 			suggestList.css('display','none');
         }
-        
+
         function enableAddItem(){
         	tagInput.removeAttr('disabled');
 			suggestList.show();
@@ -217,6 +219,9 @@
 
 
         function removeItem(value){
+            if(onRemove(value) === false) {
+                return false;
+            }
             var index = jQuery.inArray(value,tags);
             var tmpIndex = jQuery.inArray(value,tagstmp);
             if(index > -1 && tmpIndex == -1){
@@ -282,7 +287,7 @@
             selectedIndex=null;
             if(!allowNewTags){
                 selectedIndex=0;
-                $(suggestionItems[selectedIndex]).addClass("selected");	
+                $(suggestionItems[selectedIndex]).addClass("selected");
                 currentItem = $(suggestionItems[selectedIndex]).html();
             }
         }
