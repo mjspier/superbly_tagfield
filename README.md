@@ -7,7 +7,7 @@ superbly fields
 
 description
 -----------
-this is a delicious like tag field which allows to add and delete tags to a input form field.
+this is a delicious like tag field which allows to add and delete tags to an input form field.
 
 * allows new tags or only tags from array
 * allow only a certain amount of tags
@@ -20,9 +20,9 @@ installation
 ------------
 * add resources to your page:
 
-    <script type="text/javascript" src=" https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
-    <script src="superbly-tagfield.min.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="superbly-tagfield.css">
+        <script type="text/javascript" src=" https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+        <script src="superbly-tagfield.min.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="superbly-tagfield.css">
 
 usage
 -----
