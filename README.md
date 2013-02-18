@@ -20,9 +20,11 @@ installation
 ------------
 * add resources to your page:
 
-        <script type="text/javascript" src=" https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
-        <script src="superbly-tagfield.min.js" type="text/javascript"></script>
-        <link rel="stylesheet" type="text/css" href="superbly-tagfield.css">
+```html
+<script type="text/javascript" src=" https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+<script src="superbly-tagfield.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="superbly-tagfield.css">
+```
 
 usage
 -----
@@ -30,18 +32,20 @@ usage
 * add tagfield support to the input field
 
 example:
-    <script type="text/javascript">
-        $(function() {
-            $("#tagfield1").superblyTagField({
+```html
+<script type="text/javascript">
+    $(function() {
+        $("#tagfield1").superblyTagField({
                 allowNewTags: false,
                 showTagsNumber: 10,
                 preset: ['Audi','Bentley'],
                 tags: ['Alfa Romeo','Aston Martin','Audi','Bentley','Bugatti']
-            });
         });
-    </script>
-    ...
-    <input type="text" id="tagfield1" />
+    });
+</script>
+...
+<input type="text" id="tagfield1" />
+```
 
 options
 -------
