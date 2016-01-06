@@ -194,6 +194,7 @@
                 $(tagList.children('.superblyTagItem')[new_index]).children('a').click(function(e){
                     var value = $($(this).parent('.superblyTagItem').children('span')[0]).text();
                     removeItem(value);
+
                 });
             }
             suggestList.css('display', 'none');
@@ -238,6 +239,7 @@
             if((allowedTagsNumber != false) && (inserted.length < allowedTagsNumber)){
 				enableAddItem();
 			}
+            suggest(tagInput.val());
         }
 
         function removeLastItem(){
@@ -276,7 +278,6 @@
             for(key in suggestions){
                 suggestList.append("<li class='superblySuggestItem'>" + suggestions[key] + "</li>");
             }
-
             var suggestionItems = suggestList.children('.superblySuggestItem');
 
             // add click event to suggest items
