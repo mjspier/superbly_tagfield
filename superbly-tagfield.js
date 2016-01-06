@@ -96,6 +96,7 @@
 
         tagInput.focus(function(e){
             currentValue = null;
+            suggest(tagInput.val());
         });
 
         tagInput.keydown(function(e){
