@@ -12,11 +12,12 @@
 (function($){
     $.fn.superblyTagField = function(userOptions) {
         var settings = {
-        	caseSensitive:true,
-            allowNewTags:true,
-            allowedTagsNumber:false,
-            showTagsNumber:10,
-			addItemOnBlur:false,
+        	caseSensitive:true,                //区分大小写
+            allowNewTags:true,                 //允许新增
+            allowedTagsNumber:false,           //允许标签的数量
+            allowedTagsWordsNumber:false,      //允许每标签的长度
+            showTagsNumber:10,                 //展示标签的数量
+			addItemOnBlur:false,               //失去焦点时生成标签
             preset:[],
             tags:[],
             onRemove:function(tag) { return true; }
@@ -188,6 +189,10 @@
                 if(index >-1){
                     tagstmp.splice(index,1);
                 }
+                if(settings.allowedTagsWordsNumber != false){
+                    value = value.substring(0, settings.allowedTagsWordsNumber);
+                }
+                
                 inserted.push(value);
                 inputItem.before("<li class='superblyTagItem'><span>" + value + "</span><a> x</a></li>");
                 tagInput.val("");
