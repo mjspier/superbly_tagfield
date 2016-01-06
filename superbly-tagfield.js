@@ -36,7 +36,8 @@
         upArrow:38,
         enter:13,
         tab:9,
-        backspace:8
+        backspace:8,
+        space: 32
     }
     function superblyTagField(tagField,settings) {
 
@@ -106,7 +107,7 @@
                 selectDown();
             }else if(e.keyCode == keyMap.upArrow) {
                 selectUp()
-            }else if(e.keyCode == keyMap.enter || e.keyCode == keyMap.tab) {
+            }else if(e.keyCode == keyMap.enter || e.keyCode == keyMap.tab || e.keyCode == keyMap.space) {
                 checkForItem();
                 // prevent default action for enter
                 return e.keyCode != keyMap.enter;
