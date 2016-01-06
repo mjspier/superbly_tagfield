@@ -96,7 +96,9 @@
 
         tagInput.focus(function(e){
             currentValue = null;
-            suggest(tagInput.val());
+            if((allowedTagsNumber == false) || (inserted.length < allowedTagsNumber)){
+                suggest($(this).val());
+            }
         });
 
         tagInput.keydown(function(e){
