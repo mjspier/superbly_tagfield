@@ -58,6 +58,7 @@ options
 * addItemOnBlur:  	true or false (default false)
 * caseSensitive: 	true or false (default true)
 * allowTagsNumber:	number of allowed tags (default infinite)
+* allowTagsWordNumber:	number of allowed each tag length (default infinite)
 * showTagsNumber: 	number of shown suggestions tags (default 10)
 * preset:      		array of preset tags
 * tags:           	array of tags
